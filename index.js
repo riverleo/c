@@ -1,7 +1,6 @@
 /* global document */
 
 import {
-  Text,
   loader,
   Sprite,
   Application,
@@ -29,13 +28,13 @@ loader.add('bunny', '/static/bunny.png').load((__, resources) => {
   // Add the bunny to the scene we are building
   app.stage.addChild(bunny);
 
-  const handleMove = (e) => {
+  const handleKeydown = (e) => {
     const weight = 0.3;
     const bounds = bunny.getBounds();
     const maxX = Math.round((bounds.x + bounds.width) / 10) * 10;
     const maxY = Math.round((bounds.y + bounds.height) / 10) * 10;
 
-    switch(e.keyCode) {
+    switch (e.keyCode) {
       case 65: // A
       case 37: // LEFT
         if (Math.floor(bounds.x / 10) <= 0) {
@@ -74,5 +73,5 @@ loader.add('bunny', '/static/bunny.png').load((__, resources) => {
     }
   };
 
-  document.addEventListener('keydown', handleMove);
+  document.addEventListener('keydown', handleKeydown);
 });
