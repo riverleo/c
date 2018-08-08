@@ -1,0 +1,13 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "plugin:jest/recommended"],
+  "rules": {
+    "jsx-a11y/anchor-is-valid": ["error", {
+      "components": ["Link"],
+      "specialLink": ["pageName"]
+    }],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js"] }],
+    "no-console": ["error", { "allow": ["info", "warn", "error"] }],
+    "object-curly-newline": ["error", { "consistent": true, "minProperties": 2 }]
+  }
+}

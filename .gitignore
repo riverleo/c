@@ -1,5 +1,4 @@
 *.swp
 
-/.out/
-/docs/
+/etc/docs/
 /node_modules/
