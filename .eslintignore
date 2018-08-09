@@ -1,4 +1,5 @@
 *.swp
 
+/static/
 /etc/docs/
 /node_modules/

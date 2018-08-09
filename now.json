@@ -1,9 +1,5 @@
 {
   "name": "c",
-  "alias": "c",
-  "env": {
-    "NODE_ENV": "production"
-  },
   "engines": {
     "node": "10.4.1"
   }

@@ -4,22 +4,20 @@ const { send } = require('micro');
 const match = require('fs-router');
 const handler = require('serve-handler');
 
-module.exports = async (req, res) => {
+module.exports = async (req, res) => { // eslint-disable-line consistent-return
   const { url } = req;
   const matched = match(path.join(__dirname, '/routes'))(req);
 
-  let data;
-  let statusCode = 200;
-
   if (matched) {
-    data = await matched(req, res);
-  } else if (_.startsWith(url, '/static')) {
-    await handler(req, res);
-    return;
-  } else {
-    data = { error: 'Not Found' };
-    statusCode = 404;
+    return await matched(req, res); // eslint-disable-line no-return-await
   }
+
+  if (_.startsWith(url, '/static')) {
+    return await handler(req, res); // eslint-disable-line no-return-await
+  }
+
+  const data = { error: 'Not Found' };
+  const statusCode = 404;
 
   send(res, statusCode, data);
 };

@@ -1,3 +1,5 @@
+const manifest = require('../../static/bundles/manifest.json');
+
 module.exports = () => `
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +8,7 @@ module.exports = () => `
     <title></title>
   </head>
   <body>
-    <script src="/static/bundle.js"></script>
+    <script src="${manifest['main.js']}"></script>
   </body>
 </html>
 `;

@@ -1,11 +1,14 @@
 const path = require('path');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-module.exports = {
-  mode: 'development',
+module.exports = ({ dev } = {}) => ({
+  mode: dev ? 'development' : 'production',
+  devtool: dev ? 'cheap-module-eval-source-map' : 'nosources-source-map',
   entry: './src/index.js',
   output: {
-    path: path.join(__dirname, 'static'),
-    filename: 'bundle.js',
+    path: path.join(__dirname, 'static', 'bundles'),
+    filename: `bundle.${dev ? 'dev' : 'prod'}.[hash].js`,
   },
   module: {
     rules: [
@@ -21,4 +24,10 @@ module.exports = {
       },
     ],
   },
-};
+  plugins: [
+    new ManifestPlugin({ publicPath: '/static/bundles/' }),
+  ],
+  optimization: {
+    minimizer: [new UglifyJsPlugin()],
+  },
+});
