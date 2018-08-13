@@ -4,7 +4,7 @@
   "rules": {
     "jsx-a11y/anchor-is-valid": ["error", {
       "components": ["Link"],
-      "specialLink": ["pageName"]
+      "specialLink": ["to"]
     }],
     "react/jsx-filename-extension": ["error", { "extensions": [".js"] }],
     "no-console": ["error", { "allow": ["info", "warn", "error"] }],

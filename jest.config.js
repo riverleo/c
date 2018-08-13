@@ -2,6 +2,7 @@ module.exports = {
   projects: [
     {
       displayName: 'test',
+      testEnvironment: 'node',
       transform: {
         '.js$': 'babel-7-jest',
       },
