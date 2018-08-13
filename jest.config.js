@@ -1,17 +1,14 @@
 module.exports = {
-  testMatch: [
-    '**/__tests__/**/*.js?(x)',
-    '**/+(*.)+(spec|test).js?(x)',
-  ],
-  moduleNameMapper: {
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-  },
   projects: [
     {
       displayName: 'test',
       transform: {
         '.js$': 'babel-7-jest',
       },
+      testMatch: [
+        '**/__tests__/**/*.js?(x)',
+        '**/+(*.)+(spec|test).js?(x)',
+      ],
     },
     {
       displayName: 'lint',

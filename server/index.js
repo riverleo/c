@@ -16,8 +16,5 @@ module.exports = async (req, res) => { // eslint-disable-line consistent-return
     return await handler(req, res); // eslint-disable-line no-return-await
   }
 
-  const data = { error: 'Not Found' };
-  const statusCode = 404;
-
-  send(res, statusCode, data);
+  send(res, 404, 'Not Found');
 };
