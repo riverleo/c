@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
@@ -8,9 +9,11 @@ import {
   object,
   arrayOf,
 } from 'prop-types';
+import Empty from '../core/Empty';
+import Editor from '../core/Editor';
+import Sidebar from '../core/Sidebar';
 import { className } from './index.scss';
 import { set } from './redux';
-import Sidebar from '../core/Sidebar';
 
 const mapStateToProps = state => ({
   building: state.building,
@@ -18,6 +21,11 @@ const mapStateToProps = state => ({
 
 class Building extends Component {
   static propTypes = {
+    match: shape({
+      params: shape({
+        id: string,
+      }).isRequired,
+    }).isRequired,
     building: shape({
       data: arrayOf(object),
     }).isRequired,
@@ -38,6 +46,20 @@ class Building extends Component {
     axios.get(baseURL).then(({ data }) => dispatch(set({ data })));
   }
 
+  componentDidUpdate() {
+    const {
+      match,
+      baseURL,
+      dispatch,
+      building,
+    } = this.props;
+    const { id } = match.params;
+
+    if (_.has(building, id)) { return; }
+
+    axios.get(`${baseURL}/${id}`).then(({ data }) => dispatch(set({ [id]: data })));
+  }
+
   handleChange = (data) => {
     const { dispatch } = this.props;
 
@@ -46,10 +68,13 @@ class Building extends Component {
 
   render() {
     const {
+      match,
       baseURL,
       building,
     } = this.props;
+    const { params } = match;
     const { data } = building;
+    const { id } = params;
 
     return (
       <div className={className}>
@@ -58,6 +83,7 @@ class Building extends Component {
           baseURL={baseURL}
           onChange={this.handleChange}
         />
+        {_.isNil(id) ? <Empty /> : <Editor data={building[id]} />}
       </div>
     );
   }

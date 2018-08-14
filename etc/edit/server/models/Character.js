@@ -4,6 +4,8 @@ module.exports = {
   properties: {
     id: 'string',
     name: 'string?',
+    width: 'int?',
+    height: 'int?',
     sprite: 'data?',
     createdAt: {
       type: 'date',
@@ -15,5 +17,7 @@ module.exports = {
 module.exports.parse = o => ({
   id: o.id,
   name: o.name,
+  width: o.width,
+  height: o.height,
   sprite: o.sprite ? `/engine/characters/${o.id}/sprite` : null,
 });

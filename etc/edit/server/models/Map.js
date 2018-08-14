@@ -4,14 +4,8 @@ module.exports = {
   properties: {
     id: 'string',
     name: 'string?',
-    width: {
-      type: 'int',
-      default: 100,
-    },
-    height: {
-      type: 'int',
-      default: 100,
-    },
+    width: 'int?',
+    height: 'int?',
     layout: 'string?',
     createdAt: {
       type: 'date',
@@ -23,5 +17,7 @@ module.exports = {
 module.exports.parse = o => ({
   id: o.id,
   name: o.name,
+  width: o.width,
+  height: o.height,
   layout: JSON.parse(o.layout),
 });
