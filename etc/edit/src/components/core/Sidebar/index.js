@@ -32,6 +32,10 @@ class Sidebar extends Component {
     this.input = createRef();
   }
 
+  state = {
+    filtered: undefined,
+  }
+
   fetch = () => {
     const {
       baseURL,
@@ -72,12 +76,30 @@ class Sidebar extends Component {
   }
 
   handleKeyUp = (e) => {
+    const { data } = this.props;
     const name = this.input.current.value;
+    const exists = _.find(data, o => o.name === name);
 
-    if (_.isEmpty(name) || e.keyCode !== 13) { return; }
+    if (exists) { return; }
+    if (_.isEmpty(name)) { return; }
+    if (e.keyCode !== 13) { return; }
 
     this.create(this.input.current.value);
     this.input.current.value = '';
+    this.handleChange();
+  }
+
+  handleChange = () => {
+    const { data } = this.props;
+    const { value } = this.input.current;
+
+    if (_.isEmpty(value)) {
+      this.setState({ filtered: undefined });
+    } else {
+      const filtered = _.filter(data, o => _.includes(o.name, value));
+
+      this.setState({ filtered });
+    }
   }
 
   render() {
@@ -85,6 +107,8 @@ class Sidebar extends Component {
       data,
       baseURL,
     } = this.props;
+    const { filtered } = this.state;
+    const { value } = this.input.current || {};
 
     return (
       <aside className={className}>
@@ -93,12 +117,13 @@ class Sidebar extends Component {
             ref={this.input}
             type="text"
             onKeyUp={this.handleKeyUp}
+            onChange={this.handleChange}
             placeholder="검색 또는 신규추가"
           />
         </div>
         <ul>
           {
-            _.map(data, o => (
+            _.map(filtered || data, o => (
               <li key={o.id}>
                 <Link to={`${baseURL}/${o.id}`}>
                   <dl>
