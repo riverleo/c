@@ -1,6 +1,6 @@
 *.swp
+*.log
 .DS_Store
 
-/etc/docs/
+/etc/dist/
 /node_modules/
-/static/bundles/

@@ -14,7 +14,10 @@ module.exports = {
     {
       displayName: 'lint',
       runner: 'jest-runner-eslint',
-      testMatch: ['<rootDir>/**/*.js'],
+      testMatch: [
+        '<rootDir>/src/**/*.js',
+        '<rootDir>/etc/edit/**/*.js',
+      ],
     },
   ],
 };
