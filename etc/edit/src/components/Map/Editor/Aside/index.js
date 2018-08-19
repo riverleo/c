@@ -1,3 +1,5 @@
+/* global window */
+
 import _ from 'lodash';
 import cn from 'classnames';
 import { connect } from 'react-redux';
@@ -54,6 +56,16 @@ class Aside extends Component {
       [types.TEXTURE]: _.get(data, [0, 'data']),
       [types.BUILDING]: _.get(data, [1, 'data']),
     })));
+
+    setTimeout(() => window.addEventListener('click', this.hide), 10);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.hide);
+  }
+
+  hide = () => {
+    this.setState({ hide: true });
   }
 
   handleKeyUp = (e) => {
@@ -104,9 +116,10 @@ class Aside extends Component {
     this.setState({ filtered });
   }
 
+  handleHide = hide => () => this.setState({ hide })
+
   handleClickType = active => () => this.setState({ active })
 
-  handleClickToggle = hide => () => this.setState({ hide })
 
   render() {
     const { aside } = this.props;
@@ -117,12 +130,17 @@ class Aside extends Component {
     } = this.state;
 
     return (
-      <aside className={cn(className, { hide })}>
+      <aside
+        className={cn(className, { hide })}
+        onClick={e => e.stopPropagation()}
+        role="presentation"
+      >
         <nav>
           <button
             id="toggle"
+            type="button"
             className={cn({ hide })}
-            onClick={this.handleClickToggle(!hide)}
+            onClick={this.handleHide(!hide)}
           >
             <i />
             <i />
@@ -139,7 +157,7 @@ class Aside extends Component {
                 >
                   {
                     (() => {
-                      switch(type) {
+                      switch (type) {
                         case types.TEXTURE:
                           return '지형';
                         case types.BUILDING:
