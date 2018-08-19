@@ -1,11 +1,14 @@
-import map from '../components/Map/redux';
-import texture from '../components/Texture/redux';
-import building from '../components/Building/redux';
-import character from '../components/Character/redux';
+import { combineReducers } from 'redux';
+import mapList from '../components/Map/List/redux';
+import mapEditor from '../components/Map/Editor/redux';
+import mapEditorAside from '../components/Map/Editor/Aside/redux';
 
 export default {
-  map,
-  texture,
-  building,
-  character,
+  map: combineReducers({
+    list: mapList,
+    editor: combineReducers({
+      app: mapEditor,
+      aside: mapEditorAside,
+    }),
+  }),
 };

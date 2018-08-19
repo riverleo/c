@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import {
-  string,
-} from 'prop-types';
+import { className } from './index.scss';
+import Aside from './Aside';
 
 class Editor extends Component {
-  static propTypes = {
-    baseURL: string.isRequired,
-  }
-
   handle = () => {
   }
 
   render() {
     return (
-      <div>editor</div>
+      <div className={className}>
+        <Aside />
+      </div>
     );
   }
 }

@@ -15,7 +15,9 @@ module.exports = {
 
 module.exports.parse = o => ({
   id: o.id,
+  type: 'texture',
   name: o.name,
   sprite: o.sprite ? `/engine/textures/${o.id}/sprite` : null,
   zIndex: JSON.parse(o.zIndex),
+  createdAt: o.createdAt,
 });

@@ -6,23 +6,8 @@ const Navbar = () => (
   <nav className={className}>
     <ul>
       <li>
-        <Link to="/">
-          홈
-        </Link>
-      </li>
-      <li>
         <Link to="/maps">
-          지역
-        </Link>
-      </li>
-      <li>
-        <Link to="/textures">
-          지형
-        </Link>
-      </li>
-      <li>
-        <Link to="/buildings">
-          건물
+          맵
         </Link>
       </li>
       <li>

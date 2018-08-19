@@ -6,14 +6,12 @@ import { Provider } from 'react-redux';
 import {
   Route,
   Switch,
+  Redirect,
   HashRouter as Router,
 } from 'react-router-dom';
 import getStore from './store';
-import App from './components/core/App';
+import App from './components/App';
 import Map from './components/Map';
-import Home from './components/Home';
-import Texture from './components/Texture';
-import Building from './components/Building';
 import Character from './components/Character';
 
 const RouteMap = (
@@ -21,11 +19,9 @@ const RouteMap = (
     <Router>
       <App>
         <Switch>
-          <Route exact path="/" component={Home} />
           <Route path="/maps/:id?" component={Map} />
-          <Route path="/textures/:id?" component={Texture} />
-          <Route path="/buildings/:id?" component={Building} />
           <Route path="/characters/:id?" component={Character} />
+          <Redirect to="/maps" />
         </Switch>
       </App>
     </Router>

@@ -16,6 +16,7 @@ module.exports = {
 
 module.exports.parse = o => ({
   id: o.id,
+  type: 'character',
   name: o.name,
   width: o.width,
   height: o.height,

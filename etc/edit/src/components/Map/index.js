@@ -1,66 +1,20 @@
-import axios from 'axios';
-import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import _ from 'lodash';
+import React from 'react';
 import {
-  func,
   shape,
   string,
-  object,
-  arrayOf,
 } from 'prop-types';
-import { className } from './index.scss';
-import { set } from './redux';
-import Sidebar from '../core/Sidebar';
+import List from './List';
+import Editor from './Editor';
 
-const mapStateToProps = state => ({
-  map: state.map,
-});
+const Map = ({ match: { params: { id } } }) => (_.isNil(id) ? <List /> : <Editor id={id} />);
 
-class Map extends Component {
-  static propTypes = {
-    map: shape({
-      data: arrayOf(object),
+Map.propTypes = {
+  match: shape({
+    params: shape({
+      id: string,
     }).isRequired,
-    baseURL: string,
-    dispatch: func.isRequired,
-  }
+  }).isRequired,
+};
 
-  static defaultProps = {
-    baseURL: '/maps',
-  }
-
-  componentDidMount() {
-    const {
-      baseURL,
-      dispatch,
-    } = this.props;
-
-    axios.get(baseURL).then(({ data }) => dispatch(set({ data })));
-  }
-
-  handleChange = (data) => {
-    const { dispatch } = this.props;
-
-    dispatch(set({ data }));
-  }
-
-  render() {
-    const {
-      map,
-      baseURL,
-    } = this.props;
-    const { data } = map;
-
-    return (
-      <div className={className}>
-        <Sidebar
-          data={data}
-          baseURL={baseURL}
-          onChange={this.handleChange}
-        />
-      </div>
-    );
-  }
-}
-
-export default connect(mapStateToProps)(Map);
+export default Map;

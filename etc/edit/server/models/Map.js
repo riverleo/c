@@ -16,8 +16,10 @@ module.exports = {
 
 module.exports.parse = o => ({
   id: o.id,
+  type: 'map',
   name: o.name,
   width: o.width,
   height: o.height,
   layout: JSON.parse(o.layout),
+  createdAt: o.createdAt,
 });

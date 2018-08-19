@@ -1,4 +1,4 @@
-const SET = 'BUILDING_SET';
+const SET = 'MAP_LIST_SET';
 
 // ==========================================
 // Actions

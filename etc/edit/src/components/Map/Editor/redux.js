@@ -1,4 +1,4 @@
-const SET = 'MAP_SET';
+const SET = 'MAP_EDITOR_SET';
 
 // ==========================================
 // Actions

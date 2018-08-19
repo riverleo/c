@@ -1,4 +1,4 @@
-const SET = 'CHARACTER_SET';
+const SET = 'MAP_EDITOR_SIDEBAR_SET';
 
 // ==========================================
 // Actions
