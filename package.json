@@ -9,7 +9,7 @@
     "test": "jest",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage --silent",
-    "server": "micro-dev ./etc/edit/server",
+    "edit": "micro-dev ./etc/edit/server",
     "webpack": "webpack",
     "webpack:watch": "yarn webpack --env.dev --watch",
     "build": "yarn webpack",
@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.1",
+    "classnames": "^2.2.6",
     "fs-router": "^0.4.1",
     "immutable": "^3.8.2",
     "lodash": "^4.17.10",
