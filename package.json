@@ -9,7 +9,7 @@
     "test": "jest",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage --silent",
-    "edit": "micro-dev ./etc/edit/server",
+    "edit": "micro-dev ./etc/edit/server --port 3001",
     "webpack": "webpack",
     "webpack:watch": "yarn webpack --env.dev --watch",
     "build": "yarn webpack",
