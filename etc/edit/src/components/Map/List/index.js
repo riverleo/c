@@ -1,3 +1,5 @@
+/* global window */
+
 import _ from 'lodash';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -89,6 +91,7 @@ class List extends Component {
     const index = _.findIndex(list.maps, i => i.id === id);
 
     if (index === -1) { return; }
+    if (!window.confirm('정말로 삭제하시겠습니까?')) { return; }
 
     const maps = fromJS(list.maps).delete(index).toJS();
 
