@@ -20,5 +20,5 @@ module.exports.parse = o => ({
   name: o.name,
   width: o.width,
   height: o.height,
-  sprite: o.sprite ? `/engine/characters/${o.id}/sprite` : null,
+  sprite: o.sprite ? `/characters/${o.id}/sprite` : null,
 });

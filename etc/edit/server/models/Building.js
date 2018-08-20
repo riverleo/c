@@ -22,7 +22,7 @@ module.exports.parse = o => ({
   name: o.name,
   width: o.width,
   height: o.height,
-  sprite: o.sprite ? `/engine/buildings/${o.id}/sprite` : null,
+  sprite: o.sprite ? `/buildings/${o.id}/sprite` : null,
   zIndex: JSON.parse(o.zIndex),
   createdAt: o.createdAt,
 });

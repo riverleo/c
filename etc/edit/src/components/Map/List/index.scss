@@ -1,8 +1,7 @@
 :local(.className) {
-
   .container {
-    width: 640px;
-    margin: 0 auto;
+    width: 320px;
+    margin: 64px auto;
   }
 
   input {
@@ -10,39 +9,43 @@
     height: 40px;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.3);
   }
 
-  ul li {
-    padding: 10px 70px 10px 10px;
-    position: relative;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  ul {
+    margin-top: 10px;
 
-    dt {
-      font-size: 16px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    li {
+      padding: 10px 70px 10px 10px;
+      position: relative;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
-    dd {
-      font-size: 10px;
-      opacity: 0.3;
-    }
+      dt {
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
-    button {
-      top: 0;
-      right: 0;
-      width: 60px;
-      height: 100%;
-      position: absolute;
-      color: white;
-      font-size: 14px;
-      background-color: red;
-      display: none;
-    }
+      dd {
+        font-size: 10px;
+        opacity: 0.3;
+      }
 
-    &:hover button {
-      display: block;
+      button {
+        top: 0;
+        right: 0;
+        width: 60px;
+        height: 100%;
+        position: absolute;
+        color: white;
+        font-size: 14px;
+        background-color: red;
+        display: none;
+      }
+
+      &:hover button {
+        display: block;
+      }
     }
   }
 }

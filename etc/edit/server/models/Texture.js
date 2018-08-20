@@ -4,8 +4,7 @@ module.exports = {
   properties: {
     id: 'string',
     name: 'string?',
-    sprite: 'data?',
-    zIndex: 'string?',
+    sprites: 'data?',
     createdAt: {
       type: 'date',
       default: new Date(),
@@ -17,7 +16,6 @@ module.exports.parse = o => ({
   id: o.id,
   type: 'texture',
   name: o.name,
-  sprite: o.sprite ? `/engine/textures/${o.id}/sprite` : null,
-  zIndex: JSON.parse(o.zIndex),
+  sprite: o.sprite ? `/textures/${o.id}/sprite` : null,
   createdAt: o.createdAt,
 });
