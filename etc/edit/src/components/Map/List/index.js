@@ -81,6 +81,21 @@ class List extends Component {
     this.setState({ filtered });
   }
 
+  handleRemove = id => () => {
+    const {
+      list,
+      dispatch,
+    } = this.props;
+    const index = _.findIndex(list.maps, i => i.id === id);
+
+    if (index === -1) { return; }
+
+    const maps = fromJS(list.maps).delete(index).toJS();
+
+    dispatch(set({ maps }));
+    axios.delete(`/maps/${id}`);
+  }
+
   render() {
     const { list } = this.props;
     const { maps } = list;
@@ -88,31 +103,39 @@ class List extends Component {
 
     return (
       <div className={className}>
-        <input
-          ref={this.input}
-          type="text"
-          onKeyUp={this.handleKeyUp}
-          onChange={this.handleChange}
-          placeholder="검색 또는 신규추가"
-        />
-        <ul>
-          {
-            _.map(filtered || maps, m => (
-              <li key={m.id}>
-                <Link to={`/maps/${m.id}`}>
-                  <dl>
-                    <dt>
-                      {m.name}
-                    </dt>
-                    <dd>
-                      {m.id}
-                    </dd>
-                  </dl>
-                </Link>
-              </li>
-            ))
-          }
-        </ul>
+        <div className="container">
+          <input
+            ref={this.input}
+            type="text"
+            onKeyUp={this.handleKeyUp}
+            onChange={this.handleChange}
+            placeholder="검색 또는 신규추가"
+          />
+          <ul>
+            {
+              _.map(filtered || maps, m => (
+                <li key={m.id}>
+                  <Link to={`/maps/${m.id}`}>
+                    <dl>
+                      <dt>
+                        {m.name}
+                      </dt>
+                      <dd>
+                        {m.id}
+                      </dd>
+                    </dl>
+                  </Link>
+                  <button
+                    type="submit"
+                    onClick={this.handleRemove(m.id)}
+                  >
+                    삭제
+                  </button>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     );
   }

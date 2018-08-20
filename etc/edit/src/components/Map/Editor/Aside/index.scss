@@ -34,9 +34,9 @@
     }
 
     #toggle {
-      top: 0;
+      top: 1px;
       left: 0;
-      width: 32px;
+      width: 36px;
       height: 100%;
       position: absolute;
       background-color: transparent;
@@ -57,11 +57,11 @@
       }
 
       i:first-child {
-        top: calc(50% - 4px);
+        top: calc(50% - 6px);
       }
 
       i:last-child {
-        top: calc(50% + 4px);
+        top: calc(50% + 6px);
       }
     }
   }
