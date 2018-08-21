@@ -4,9 +4,8 @@ module.exports = {
   properties: {
     id: 'string',
     name: 'string?',
-    width: 'int?',
-    height: 'int?',
     sprite: 'data?',
+    choppeds: 'data[]',
     createdAt: {
       type: 'date',
       default: new Date(),

@@ -4,6 +4,7 @@ const {
   send,
 } = require('micro');
 const form = require('../../../../lib/form');
+const chop = require('../../../../lib/chop');
 const db = require('../../../models/db');
 const { parse } = require('../../../models/Texture');
 
@@ -31,11 +32,20 @@ module.exports = async (req, res) => {
     return;
   }
 
+  let choppeds;
+
+  if (_.has(data, 'sprite')) {
+    choppeds = await chop(data.sprite.content, 120, 120);
+  }
+
   db.write(() => {
     if (_.isNil(texture)) { texture = db.create('Texture', { id }); }
 
     if (_.has(data, 'name')) { texture.name = data.name; }
-    if (_.has(data, 'sprite')) { texture.sprite = data.sprite.content; }
+    if (_.has(data, 'sprite')) {
+      texture.sprite = data.sprite.content;
+      texture.choppeds = choppeds;
+    }
     if (_.has(data, 'zIndex')) { texture.zIndex = data.zIndex; }
 
     send(res, 200, parse(texture));

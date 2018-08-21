@@ -79,7 +79,7 @@ class Texture extends Component {
     const {
       id,
       name,
-      sprite,
+      choppeds,
     } = data;
 
     return (
@@ -116,29 +116,17 @@ class Texture extends Component {
           >
             이미지를 추가 또는 변경
           </Drop>
-          <div className="pieces">
+          <div className="choppeds">
             {
-              _.times(6, (i) => {
-                let c;
-
-                if (i < 3) {
-                  c = `${i * 120},0,120,120`;
-                } else if (i < 6) {
-                  c = `${(i - 3) * 120},120,120,120`;
-                } else {
-                  c = `${(i - 6) * 120},240,120,120`;
-                }
-
-                return (
-                  <button
-                    key={i}
-                    type="button"
-                    className="piece"
-                  >
-                    <i style={{ backgroundImage: `url('${sprite}?c=${c}&r=30&${hash}')` }} />
-                  </button>
-                );
-              })
+              _.map(choppeds, c => (
+                <button
+                  key={c}
+                  type="button"
+                  className="chopped"
+                >
+                  <i style={{ backgroundImage: `url('${c}?${hash}')` }} />
+                </button>
+              ))
             }
           </div>
         </div>

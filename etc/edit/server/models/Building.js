@@ -3,12 +3,10 @@ module.exports = {
   primaryKey: 'id',
   properties: {
     id: 'string',
-    name: 'string?',
     map: 'Map?',
-    width: 'int?',
-    height: 'int?',
+    name: 'string?',
     sprite: 'data?',
-    zIndex: 'string?',
+    choppeds: 'data[]',
     createdAt: {
       type: 'date',
       default: new Date(),

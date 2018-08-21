@@ -4,8 +4,14 @@ module.exports = {
   properties: {
     id: 'string',
     name: 'string?',
-    width: 'int?',
-    height: 'int?',
+    width: {
+      type: 'int',
+      default: 600,
+    },
+    height: {
+      type: 'int',
+      default: 600,
+    },
     layout: 'string?',
     createdAt: {
       type: 'date',
