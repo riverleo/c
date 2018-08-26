@@ -5,13 +5,13 @@ import {
   shape,
 } from 'prop-types';
 import types from './types';
-import Texture from './Texture';
+import Terrain from './Terrain';
 import Building from './Building';
 
 const Item = ({ data }) => {
   switch (data.type) {
-    case types.TEXTURE:
-      return <Texture data={data} />;
+    case types.TERRAIN:
+      return <Terrain data={data} />;
     case types.BUILDING:
       return <Building data={data} />;
     default:

@@ -6,13 +6,13 @@ const {
 const form = require('../../../../lib/form');
 const chop = require('../../../../lib/chop');
 const db = require('../../../models/db');
-const { parse } = require('../../../models/Texture');
+const { parse } = require('../../../models/Terrain');
 
 module.exports = async (req, res) => {
   const { id } = req.params;
 
   let data;
-  let texture = db.objects('Texture').filtered(`id = "${id}"`).find(o => o.id === id);
+  let terrain = db.objects('Terrain').filtered(`id = "${id}"`).find(o => o.id === id);
 
   try {
     data = await json(req);
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
 
   if (req.method === 'DELETE') {
     db.write(() => {
-      if (!_.isNil(texture)) { db.delete(texture); }
+      if (!_.isNil(terrain)) { db.delete(terrain); }
 
       send(res, 202);
     });
@@ -39,15 +39,15 @@ module.exports = async (req, res) => {
   }
 
   db.write(() => {
-    if (_.isNil(texture)) { texture = db.create('Texture', { id }); }
+    if (_.isNil(terrain)) { terrain = db.create('Terrain', { id }); }
 
-    if (_.has(data, 'name')) { texture.name = data.name; }
+    if (_.has(data, 'name')) { terrain.name = data.name; }
     if (_.has(data, 'sprite')) {
-      texture.sprite = data.sprite.content;
-      texture.choppeds = choppeds;
+      terrain.sprite = data.sprite.content;
+      terrain.choppeds = choppeds;
     }
-    if (_.has(data, 'zIndex')) { texture.zIndex = data.zIndex; }
+    if (_.has(data, 'zIndex')) { terrain.zIndex = data.zIndex; }
 
-    send(res, 200, parse(texture));
+    send(res, 200, parse(terrain));
   });
 };

@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 module.exports = {
-  name: 'Texture',
+  name: 'Terrain',
   primaryKey: 'id',
   properties: {
     id: 'string',
@@ -17,9 +17,9 @@ module.exports = {
 
 module.exports.parse = o => ({
   id: o.id,
-  type: 'texture',
+  type: 'terrain',
   name: o.name,
-  sprite: o.sprite ? `/textures/${o.id}/sprite` : null,
-  choppeds: _.map(o.choppeds, (__, index) => `/textures/${o.id}/sprite/${index}`),
+  sprite: o.sprite ? `/terrains/${o.id}/sprite` : null,
+  choppeds: _.map(o.choppeds, (__, index) => `/terrains/${o.id}/sprite/${index}`),
   createdAt: o.createdAt,
 });

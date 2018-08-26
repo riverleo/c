@@ -1,4 +1,4 @@
 export default {
-  TEXTURE: 'texture',
+  TERRAIN: 'terrain',
   BUILDING: 'building',
 };

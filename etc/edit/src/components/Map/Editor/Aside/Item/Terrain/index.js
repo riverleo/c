@@ -23,14 +23,14 @@ const mapStateToProps = state => ({
   aside: state.map.editor.aside,
 });
 
-class Texture extends Component {
+class Terrain extends Component {
   static propTypes = {
     data: shape({
       id: string.isRequired,
       name: string.isRequired,
     }).isRequired,
     aside: shape({
-      textures: arrayOf(object),
+      terrains: arrayOf(object),
     }).isRequired,
     dispatch: func.isRequired,
   };
@@ -46,15 +46,15 @@ class Texture extends Component {
       aside,
       dispatch,
     } = this.props;
-    const index = _.findIndex(aside[types.TEXTURE], i => i.id === data.id);
+    const index = _.findIndex(aside[types.TERRAIN], i => i.id === data.id);
 
     if (index === -1) { return; }
     if (!window.confirm('정말로 삭제하시겠습니까?')) { return; }
 
-    const items = fromJS(aside[types.TEXTURE]).delete(index).toJS();
+    const items = fromJS(aside[types.TERRAIN]).delete(index).toJS();
 
-    dispatch(set({ [types.TEXTURE]: items }));
-    axios.delete(`/textures/${data.id}`);
+    dispatch(set({ [types.TERRAIN]: items }));
+    axios.delete(`/terrains/${data.id}`);
   }
 
   handleDrop = (files) => {
@@ -64,7 +64,7 @@ class Texture extends Component {
 
     _.forEach(files, f => formData.append('sprite', f));
 
-    axios.post(`/textures/${data.id}`, formData, { headers });
+    axios.post(`/terrains/${data.id}`, formData, { headers });
     this.setState({ hash: newId() });
   }
 
@@ -135,4 +135,4 @@ class Texture extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Texture);
+export default connect(mapStateToProps)(Terrain);

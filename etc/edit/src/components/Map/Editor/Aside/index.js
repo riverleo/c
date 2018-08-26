@@ -28,7 +28,7 @@ const mapStateToProps = state => ({
 class Aside extends Component {
   static propTypes = {
     aside: shape({
-      texture: arrayOf(object),
+      terrain: arrayOf(object),
       building: arrayOf(object),
     }).isRequired,
     dispatch: func.isRequired,
@@ -42,7 +42,7 @@ class Aside extends Component {
 
   state = {
     hide: false,
-    active: types.TEXTURE,
+    active: types.TERRAIN,
     filtered: undefined,
   }
 
@@ -50,10 +50,10 @@ class Aside extends Component {
     const { dispatch } = this.props;
 
     Promise.all([
-      axios.get('/textures'),
+      axios.get('/terrains'),
       axios.get('/buildings'),
     ]).then(data => dispatch(set({
-      [types.TEXTURE]: _.get(data, [0, 'data']),
+      [types.TERRAIN]: _.get(data, [0, 'data']),
       [types.BUILDING]: _.get(data, [1, 'data']),
     })));
 
@@ -85,8 +85,8 @@ class Aside extends Component {
     let baseURL;
 
     switch (active) {
-      case types.TEXTURE:
-        baseURL = '/textures';
+      case types.TERRAIN:
+        baseURL = '/terrains';
         break;
       case types.BUILDING:
         baseURL = '/buildings';
@@ -158,7 +158,7 @@ class Aside extends Component {
                   {
                     (() => {
                       switch (type) {
-                        case types.TEXTURE:
+                        case types.TERRAIN:
                           return '지형';
                         case types.BUILDING:
                           return '건물';
