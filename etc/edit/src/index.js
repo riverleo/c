@@ -10,7 +10,7 @@ import {
   HashRouter as Router,
 } from 'react-router-dom';
 import getStore from './store';
-import App from './components/App';
+import App from './components/Core/App';
 import Map from './components/Map';
 import Character from './components/Character';
 

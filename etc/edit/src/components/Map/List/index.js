@@ -1,9 +1,6 @@
-/* global window */
-
 import _ from 'lodash';
+import cn from 'classnames';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { fromJS } from 'immutable';
 import { connect } from 'react-redux';
 import React, {
   Component,
@@ -17,7 +14,10 @@ import {
 } from 'prop-types';
 import { set } from './redux';
 import { className } from './index.scss';
-import newId from '../../../../lib/newId';
+import handleClick from './handleClick';
+import handleKeyUp from './handleKeyUp';
+import handleChange from './handleChange';
+import PropertyEditor from './PropertyEditor';
 
 const mapStateToProps = state => ({
   list: state.map.list,
@@ -28,7 +28,10 @@ class List extends Component {
     list: shape({
       maps: arrayOf(shape({
         id: string.isRequired,
+        name: string.isRequired,
       })),
+      selected: string,
+      filtered: arrayOf(string),
     }).isRequired,
     dispatch: func.isRequired,
   }
@@ -39,105 +42,82 @@ class List extends Component {
     this.input = createRef();
   }
 
-  state = {
-    filtered: undefined,
-  }
-
   componentDidMount() {
     const { dispatch } = this.props;
 
     axios.get('/maps').then(({ data: maps }) => dispatch(set({ maps })));
   }
 
-  handleKeyUp = (e) => {
+  render() {
     const {
       list,
       dispatch,
     } = this.props;
-    const { maps } = list;
-    const name = this.input.current.value;
-    const exists = _.find(maps, m => m.name === name);
+    const {
+      maps,
+      selected: selectedId,
+      filtered: filteredIds,
+    } = list;
 
-    if (exists) { return; }
-    if (_.isEmpty(name)) { return; }
-    if (e.keyCode !== 13) { return; }
-
-    axios.post(`/maps/${newId()}`, { name })
-      .then(({ data: map }) => dispatch(set({ maps: fromJS(maps).insert(0, map).toJS() })));
-
-    this.input.current.value = '';
-    this.handleChange();
-  }
-
-  handleChange = () => {
-    const { list } = this.props;
-    const { maps } = list;
-    const { value } = this.input.current;
+    const selected = _.find(maps, m => m.id === selectedId);
 
     let filtered;
 
-    if (!_.isEmpty(value)) {
-      filtered = _.filter(maps, m => _.includes(m.name, value));
+    if (!_.isNil(filteredIds)) {
+      filtered = _.filter(maps, m => _.includes(filteredIds, m.id));
     }
 
-    this.setState({ filtered });
-  }
-
-  handleRemove = id => () => {
-    const {
-      list,
-      dispatch,
-    } = this.props;
-    const index = _.findIndex(list.maps, i => i.id === id);
-
-    if (index === -1) { return; }
-    if (!window.confirm('정말로 삭제하시겠습니까?')) { return; }
-
-    const maps = fromJS(list.maps).delete(index).toJS();
-
-    dispatch(set({ maps }));
-    axios.delete(`/maps/${id}`);
-  }
-
-  render() {
-    const { list } = this.props;
-    const { maps } = list;
-    const { filtered } = this.state;
-
     return (
-      <div className={className}>
-        <div className="container">
+      <div className={cn(className, { selected })}>
+        <div className="list">
           <input
             ref={this.input}
             type="text"
-            onKeyUp={this.handleKeyUp}
-            onChange={this.handleChange}
+            onKeyUp={
+              handleKeyUp({
+                list,
+                input: this.input,
+                dispatch,
+              })
+            }
+            onChange={
+              handleChange({
+                list,
+                input: this.input,
+                dispatch,
+              })
+            }
             placeholder="검색 또는 신규추가"
           />
           <ul>
             {
-              _.map(filtered || maps, m => (
-                <li key={m.id}>
-                  <Link to={`/maps/${m.id}`}>
+              _.map(filtered || maps, map => (
+                <li key={map.id}>
+                  <button
+                    type="button"
+                    onClick={
+                      handleClick({
+                        map,
+                        dispatch,
+                      })
+                    }
+                  >
                     <dl>
                       <dt>
-                        {m.name}
+                        {map.name || '-'}
                       </dt>
                       <dd>
-                        {m.id}
+                        {map.id}
                       </dd>
                     </dl>
-                  </Link>
-                  <button
-                    type="submit"
-                    onClick={this.handleRemove(m.id)}
-                  >
-                    삭제
                   </button>
                 </li>
               ))
             }
           </ul>
+        </div>
+        <div className="selected">
+          {selected && <PropertyEditor map={selected} />}
         </div>
       </div>
     );

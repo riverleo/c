@@ -35,9 +35,9 @@ module.exports = async (req, res) => {
     if (_.isNil(map)) { map = db.create('Map', { id }); }
 
     if (_.has(data, 'name')) { map.name = data.name; }
-    if (_.has(data, 'layout')) { map.data = data.layout; }
-    if (_.has(data, 'width')) { map.data = _.toInteger(data.width); }
-    if (_.has(data, 'height')) { map.data = _.toInteger(data.height); }
+    if (_.has(data, 'width')) { map.width = _.toInteger(data.width); }
+    if (_.has(data, 'height')) { map.height = _.toInteger(data.height); }
+    if (_.has(data, 'layout')) { map.layout = data.layout; }
 
     send(res, 200, parse(map));
   });
