@@ -5,11 +5,11 @@
   "license": "UNLISENSE",
   "private": true,
   "scripts": {
-    "dev": "concurrently -n 'SV,WP' -c 'yellow,blue' 'yarn micro' 'yarn webpack:watch'",
+    "dev": "concurrently -n 'SV,WP' -c 'yellow,blue' 'yarn edit' 'yarn webpack:watch'",
     "test": "jest",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage --silent",
-    "edit": "micro-dev ./etc/edit/server --port 3001",
+    "edit": "micro-dev ./etc/edit/server --port 3030",
     "webpack": "webpack",
     "webpack:watch": "yarn webpack --env.dev --watch",
     "build": "yarn webpack",

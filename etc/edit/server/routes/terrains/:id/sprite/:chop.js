@@ -5,10 +5,10 @@ const db = require('../../../../models/db');
 module.exports = async (req, res) => {
   const {
     id,
-    chopped,
+    chop,
   } = req.params;
   const terrain = db.objects('Terrain').find(o => o.id === id);
-  const sprite = _.get(terrain, ['choppeds', chopped]);
+  const sprite = _.get(terrain, ['chops', chop]);
 
   if (_.isNil(sprite)) {
     send(res, 404);

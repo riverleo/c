@@ -32,10 +32,10 @@ module.exports = async (req, res) => {
     return;
   }
 
-  let choppeds;
+  let chops;
 
   if (_.has(data, 'sprite')) {
-    choppeds = await chop(data.sprite.content, 120, 120);
+    chops = await chop(data.sprite.content, 60, 60);
   }
 
   db.write(() => {
@@ -43,8 +43,8 @@ module.exports = async (req, res) => {
 
     if (_.has(data, 'name')) { terrain.name = data.name; }
     if (_.has(data, 'sprite')) {
+      terrain.chops = chops;
       terrain.sprite = data.sprite.content;
-      terrain.choppeds = choppeds;
     }
     if (_.has(data, 'zIndex')) { terrain.zIndex = data.zIndex; }
 

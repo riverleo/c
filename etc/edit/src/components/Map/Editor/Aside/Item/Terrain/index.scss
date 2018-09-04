@@ -3,7 +3,6 @@
 
   & > header {
     padding-right: 60px;
-    position: relative;
 
     .item {
       width: 100%;
@@ -24,47 +23,54 @@
         }
       }
     }
-
-    .remove {
-      top: 0;
-      right: 0;
-      width: 60px;
-      height: 60px;
-      display: none;
-      position: absolute;
-      color: white;
-      font-size: 14px;
-      background-color: red;
-    }
-
-    &:hover > .remove {
-      display: block;
-    }
   }
 
   & > .body {
     display: none;
-    border-top: 1px solid rgba(0, 0, 0, 0.04);
-    background-color: #f5f5f5;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
 
-    &.show {
+    &.active {
       display: block;
     }
 
-    .new {
-      width: 100%;
-      padding: 10px;
-      font-size: 11px;
-      text-align: center;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      cursor: pointer;
+    menu {
+      padding: 10px 5px;
+      overflow: auto;
+
+      .add,
+      .remove {
+        float: left;
+        width: calc(50% - 10px);
+        margin: 0 5px;
+        padding: 10px;
+        font-size: 12px;
+        text-align: center;
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .add {
+        color: white;
+        border: 1px solid #0028db;
+        background-color: #0028db;
+        cursor: pointer;
+      }
+
+      .remove {
+        color: #f60063;
+        border: 1px solid #f60063;
+      }
     }
 
-    .choppeds {
+    .chops {
       padding: 10px;
       overflow: auto;
 
-      .chopped {
+      .chop {
         float: left;
         width: 30px;
         height: 30px;

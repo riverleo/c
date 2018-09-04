@@ -6,11 +6,11 @@ module.exports = {
     name: 'string?',
     width: {
       type: 'int',
-      default: 600,
+      default: 50,
     },
     height: {
       type: 'int',
-      default: 600,
+      default: 50,
     },
     layout: 'string?',
     createdAt: {
