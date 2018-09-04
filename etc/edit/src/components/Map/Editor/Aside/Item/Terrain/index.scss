@@ -12,9 +12,15 @@
 
       dl {
         dt {
-          font-size: 16px;
           overflow: hidden;
           text-overflow: ellipsis;
+
+          input {
+            width: 100%;
+            font-size: 16px;
+            min-height: 24px;
+            background-color: transparent;
+          }
         }
 
         dd {

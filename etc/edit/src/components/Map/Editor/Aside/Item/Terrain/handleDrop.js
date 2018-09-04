@@ -22,7 +22,7 @@ export default ({
 
         if (index < 0) { return arr; }
 
-        return arr.set(index, changed);
+        return arr.set(index, fromJS(changed));
       }).toJS();
 
       dispatch(set({ terrain }));

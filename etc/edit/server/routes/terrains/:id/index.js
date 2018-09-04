@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
 
   let chops;
 
-  if (_.has(data, 'sprite')) {
+  if (_.get(data, ['sprite', 'type']) === 'file') {
     chops = await chop(data.sprite.content, 60, 60);
   }
 
@@ -42,7 +42,7 @@ module.exports = async (req, res) => {
     if (_.isNil(terrain)) { terrain = db.create('Terrain', { id }); }
 
     if (_.has(data, 'name')) { terrain.name = data.name; }
-    if (_.has(data, 'sprite')) {
+    if (_.get(data, ['sprite', 'type']) === 'file') {
       terrain.chops = chops;
       terrain.sprite = data.sprite.content;
     }

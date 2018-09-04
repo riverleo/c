@@ -13,6 +13,7 @@ import Drop from 'react-dropzone';
 import { className } from './index.scss';
 import handleDrop from './handleDrop';
 import handleClick from './handleClick';
+import handleChange from './handleChange';
 import handleRemove from './handleRemove';
 
 const mapStateToProps = state => ({
@@ -48,7 +49,18 @@ const Terrain = (props) => {
         >
           <dl>
             <dt>
-              {name}
+              <input
+                type="text"
+                value={name}
+                onChange={
+                  handleChange({
+                    key: 'name',
+                    data,
+                    aside,
+                    dispatch,
+                  })
+                }
+              />
             </dt>
             <dd>
               {id}
