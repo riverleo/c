@@ -14,7 +14,7 @@ module.exports = ({ dev } = {}) => ({
   },
   output: {
     path: path.join(__dirname, 'etc', 'dist'),
-    filename: `[name].${dev ? 'dev' : 'prod'}.[hash].js`,
+    filename: dev ? `[name].dev.js` : `[name].prod.[hash].js`,
   },
   module: {
     rules: [
@@ -49,7 +49,7 @@ module.exports = ({ dev } = {}) => ({
     new CleanWebpackPlugin('etc/dist'),
     new ManifestPlugin(),
     new MiniCssExtractPlugin({
-      filename: `[name].${dev ? 'dev' : 'prod'}.[hash].css`,
+      filename: dev ? `[name].dev.css` : `[name].prod.[hash].css`,
     }),
   ],
   optimization: {

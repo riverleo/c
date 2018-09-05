@@ -19,7 +19,7 @@ module.exports.parse = o => ({
   id: o.id,
   type: 'terrain',
   name: o.name,
-  chops: _.map(o.chops, (__, index) => `/terrains/${o.id}/sprite/${index}?${new Date().getTime()}`),
+  chops: _.map(o.chops, (__, index) => `/terrains/${o.id}/sprite/${index}`),
   sprite: o.sprite ? `/terrains/${o.id}/sprite` : null,
   createdAt: o.createdAt,
 });

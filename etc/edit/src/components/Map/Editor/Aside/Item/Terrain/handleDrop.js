@@ -25,7 +25,10 @@ export default ({
         return arr.set(index, fromJS(changed));
       }).toJS();
 
-      dispatch(set({ terrain }));
+      dispatch(set({
+        hash: new Date().getTime(),
+        terrain,
+      }));
     })
     .catch(() => window.alert('600x300 규격의 이미지만 사용 가능합니다.'));
 };

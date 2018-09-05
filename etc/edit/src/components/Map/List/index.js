@@ -12,6 +12,7 @@ import {
   string,
   arrayOf,
 } from 'prop-types';
+import parse from './parse';
 import { set } from './redux';
 import { className } from './index.scss';
 import handleClick from './handleClick';
@@ -28,7 +29,7 @@ class List extends Component {
     list: shape({
       maps: arrayOf(shape({
         id: string.isRequired,
-        name: string.isRequired,
+        name: string,
       })),
       selected: string,
       filtered: arrayOf(string),
@@ -45,7 +46,8 @@ class List extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
 
-    axios.get('/maps').then(({ data: maps }) => dispatch(set({ maps })));
+    axios.get('/maps')
+      .then(({ data }) => dispatch(set({ maps: _.map(data, o => parse(o)) })));
   }
 
   render() {

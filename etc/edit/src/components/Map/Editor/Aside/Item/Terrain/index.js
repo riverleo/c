@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   func,
   shape,
+  number,
   string,
   object,
   arrayOf,
@@ -13,6 +14,7 @@ import Drop from 'react-dropzone';
 import { className } from './index.scss';
 import handleDrop from './handleDrop';
 import handleClick from './handleClick';
+import handleSelect from './handleSelect';
 import handleChange from './handleChange';
 import handleRemove from './handleRemove';
 
@@ -26,7 +28,14 @@ const Terrain = (props) => {
     aside,
     dispatch,
   } = props;
-  const { active } = aside;
+  const {
+    hash,
+    active,
+    selected,
+  } = aside;
+  const {
+    path,
+  } = selected || {};
   const {
     id,
     name,
@@ -106,9 +115,15 @@ const Terrain = (props) => {
                   <button
                     key={c}
                     type="button"
-                    className="chop"
+                    className={cn('chop', { active: path === c })}
+                    onClick={
+                      handleSelect({
+                        chop: c,
+                        dispatch,
+                      })
+                    }
                   >
-                    <i style={{ backgroundImage: `url('${c}')` }} />
+                    <i style={{ backgroundImage: `url('${c}?${hash}')` }} />
                   </button>
                 ))
               }
@@ -126,6 +141,7 @@ Terrain.propTypes = {
     name: string.isRequired,
   }).isRequired,
   aside: shape({
+    hash: number,
     active: string,
     terrains: arrayOf(object),
   }).isRequired,
