@@ -14,6 +14,7 @@ export const set = payload => ({
 // ==========================================
 
 const initialState = {
+  size: 30,
 };
 
 export default (state = initialState, action) => {

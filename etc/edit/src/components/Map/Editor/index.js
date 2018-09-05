@@ -11,6 +11,7 @@ import {
 } from 'prop-types';
 import { className } from './index.scss';
 import { set } from './redux';
+import Tool from './Tool';
 import Aside from './Aside';
 import Block from './Block';
 import handleShow from './Aside/handleShow';
@@ -51,7 +52,10 @@ class Editor extends Component {
       aside,
       dispatch,
     } = this.props;
-    const { map } = app;
+    const {
+      map,
+      size,
+    } = app;
     const { show } = aside;
     const {
       width,
@@ -62,24 +66,25 @@ class Editor extends Component {
 
     return (
       <div
+        role="presentation"
+        onClick={
+          handleShow({
+            show: false,
+            current: show,
+            dispatch,
+          })
+        }
         className={className}
       >
+        <Tool />
         <Aside />
         <div id="frame">
           <div
             id="layout"
             style={{
-              width: width * 60,
-              height: height * 60,
+              width: width * size,
+              height: height * size,
             }}
-            onClick={
-              handleShow({
-                show: false,
-                current: show,
-                dispatch,
-              })
-            }
-            role="presentation"
           >
             {
               _.times(width, x => (

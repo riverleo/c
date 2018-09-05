@@ -44,7 +44,10 @@ class Block extends Component {
       aside,
       dispatch,
     } = this.props;
-    const { map } = app;
+    const {
+      map,
+      size,
+    } = app;
     const { layout } = map || {};
     const { selected } = aside;
     const data = _.get(layout, [x, y]);
@@ -53,8 +56,10 @@ class Block extends Component {
       <div
         role="presentation"
         style={{
-          top: x * 60,
-          left: y * 60,
+          top: x * size,
+          left: y * size,
+          width: size,
+          height: size,
           backgroundImage: data ? `url('${data.path}')` : undefined,
         }}
         onClick={

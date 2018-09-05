@@ -80,6 +80,7 @@ class Aside extends Component {
       <aside
         role="presentation"
         className={cn(className, { show })}
+        onClick={e => e.stopPropagation()}
       >
         <nav>
           <button

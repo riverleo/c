@@ -1,7 +1,6 @@
 :local(.className) {
-  width: 60px;
-  height: 60px;
   position: absolute;
+  background-size: cover;
   box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.02), inset 1px 1px 0 0 rgba(0, 0, 0, 0.04);
   cursor: pointer;
 
