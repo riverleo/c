@@ -90,9 +90,9 @@ class Editor extends Component {
               _.times(width, x => (
                 _.times(height, y => (
                   <Block
-                    key={`${x}${y}`}
                     x={x}
                     y={y}
+                    key={`${x}${y}`}
                   />
                 ))
               ))

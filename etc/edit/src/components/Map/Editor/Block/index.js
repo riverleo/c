@@ -33,7 +33,8 @@ class Block extends Component {
     dispatch: func.isRequired,
   };
 
-  handle = () => {
+  shouldComponentUpdate() {
+    return true;
   }
 
   render() {

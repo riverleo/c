@@ -12,7 +12,6 @@ export default ({
   selected,
   dispatch,
 }) => () => {
-  console.log({ selected });
   if (_.isNil(selected)) { return; }
 
   const map = fromJS(prevMap).updateIn(['layout'], (rawLayout) => {
