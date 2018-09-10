@@ -1,17 +1,19 @@
 import _ from 'lodash';
-import { set } from '../../redux';
+import { set as asideSet } from '../../redux';
+import { set as appSet } from '../../../redux';
 
 export default ({
   chop,
+  terrain,
+  building,
   dispatch,
 }) => () => {
-  const path = _.split(chop, '?')[0];
-  const [, type, id,, index] = _.split(path, '/');
+  const props = _.omitBy({
+    selectedTerrain: terrain,
+    selectedTerrainChop: chop,
+    selectedBuilding: building,
+  }, o => _.isNil(o));
 
-  const selected = {
-    key: `${type}_${id}_${index}`,
-    path,
-  };
-
-  dispatch(set({ selected }));
+  dispatch(appSet(props));
+  dispatch(asideSet(props));
 };

@@ -7,10 +7,9 @@ import {
   shape,
   number,
   string,
-  object,
-  arrayOf,
 } from 'prop-types';
 import Drop from 'react-dropzone';
+import types from '../types';
 import { className } from './index.scss';
 import handleDrop from './handleDrop';
 import handleClick from './handleClick';
@@ -29,18 +28,30 @@ const Terrain = (props) => {
     dispatch,
   } = props;
   const {
+    type,
     hash,
-    active,
-    selected,
+    selectedTerrain,
+    selectedTerrainChop,
+    selectedBuilding,
   } = aside;
-  const {
-    path,
-  } = selected || {};
   const {
     id,
     name,
     chops,
   } = data;
+
+  let active;
+
+  switch (type) {
+    case types.TERRAIN:
+      active = _.get(selectedTerrain, 'id');
+      break;
+
+    default:
+    case types.BUILDING:
+      active = _.get(selectedBuilding, 'id');
+      break;
+  }
 
   return (
     <li className={className}>
@@ -111,19 +122,20 @@ const Terrain = (props) => {
           _.size(chops) > 0 && (
             <div className="chops">
               {
-                _.map(chops, c => (
+                _.map(chops, chop => (
                   <button
-                    key={c}
+                    key={chop}
                     type="button"
-                    className={cn('chop', { active: path === c })}
+                    className={cn('chop', { active: chop === selectedTerrainChop })}
                     onClick={
                       handleSelect({
-                        chop: c,
+                        chop,
+                        terrain: data,
                         dispatch,
                       })
                     }
                   >
-                    <i style={{ backgroundImage: `url('${c}?${hash}')` }} />
+                    <i style={{ backgroundImage: `url('${chop}?${hash}')` }} />
                   </button>
                 ))
               }
@@ -141,9 +153,9 @@ Terrain.propTypes = {
     name: string.isRequired,
   }).isRequired,
   aside: shape({
+    type: string,
     hash: number,
-    active: string,
-    terrains: arrayOf(object),
+    selectedChop: string,
   }).isRequired,
   dispatch: func.isRequired,
 };

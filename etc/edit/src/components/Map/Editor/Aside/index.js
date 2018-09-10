@@ -17,6 +17,7 @@ import axios from 'axios';
 import Promise from 'bluebird';
 import { className } from './index.scss';
 import Item, { types } from './Item';
+import { set as appSet } from '../redux';
 import { set } from './redux';
 import handleShow from './handleShow';
 import handleKeyUp from './handleKeyUp';
@@ -50,13 +51,18 @@ class Aside extends Component {
     Promise.all([
       axios.get('/terrains'),
       axios.get('/buildings'),
-    ]).then(data => dispatch(set({
-      show: true,
-      type: types.TERRAIN,
-      hash: new Date().getTime(),
-      [types.TERRAIN]: _.get(data, [0, 'data']),
-      [types.BUILDING]: _.get(data, [1, 'data']),
-    })));
+    ]).then((data) => {
+      const hash = new Date().getTime();
+
+      dispatch(appSet({ hash }));
+      dispatch(set({
+        show: true,
+        type: types.TERRAIN,
+        hash,
+        [types.TERRAIN]: _.get(data, [0, 'data']),
+        [types.BUILDING]: _.get(data, [1, 'data']),
+      }));
+    });
   }
 
   render() {

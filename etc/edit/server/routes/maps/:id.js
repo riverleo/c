@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
     if (_.has(data, 'name')) { map.name = data.name; }
     if (_.has(data, 'width')) { map.width = _.toInteger(data.width); }
     if (_.has(data, 'height')) { map.height = _.toInteger(data.height); }
-    if (_.has(data, 'layout')) { map.layout = data.layout; }
+    if (_.has(data, 'layout')) { map.layout = JSON.stringify(data.layout); }
 
     send(res, 200, parse(map));
   });
