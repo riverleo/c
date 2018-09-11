@@ -38,8 +38,9 @@ module.exports = async (buffer, chopWidth, chopHeight) => {
       }
     });
 
+    console.log({ same, alpha, hash });
     if (same) { return undefined; }
-    if (alpha <= 2) { return undefined; }
+    if (alpha <= 10) { return undefined; }
     if (_.includes(hashes, hash)) { return undefined; }
 
     hashes.push(hash);

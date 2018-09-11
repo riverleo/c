@@ -22,21 +22,21 @@ export default ({
       layout = List();
     }
 
-    if (_.isNil(layout.get(x))) {
-      layout = layout.set(x, List());
+    if (_.isNil(layout.get(y))) {
+      layout = layout.set(y, List());
     }
 
-    if (_.isNil(layout.get(x).get(y))) {
-      layout = layout.setIn([x, y], List());
+    if (_.isNil(layout.get(y).get(x))) {
+      layout = layout.setIn([y, x], List());
     }
 
-    const count = layout.getIn([x, y]).count();
+    const count = layout.getIn([y, x]).count();
 
     if (chop === 'erase') {
-      return layout.setIn([x, y], List());
+      return layout.setIn([y, x], List());
     }
 
-    return layout.setIn([x, y, count], chop);
+    return layout.setIn([y, x, count], chop);
   }).toJS();
 
   axios.post(`/maps/${map.id}`, map);

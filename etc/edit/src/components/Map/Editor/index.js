@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
@@ -9,9 +10,10 @@ import {
 } from 'prop-types';
 import { className } from './index.scss';
 import { set } from './redux';
-import Tool from './Tool';
 import Grid from './Grid';
 import Aside from './Aside';
+import Toolbar from './Toolbar';
+import ResizeBar, { DIRECTION } from './ResizeBar';
 import handleShow from './Aside/handleShow';
 
 const mapStateToProps = state => ({
@@ -56,10 +58,21 @@ class Editor extends Component {
         }
         className={className}
       >
-        <Tool />
         <Aside />
-        <div id="frame">
-          <Grid />
+        <Toolbar />
+
+        <div className="container">
+          {
+            _.map(_.values(DIRECTION), direction => (
+              <ResizeBar
+                key={direction}
+                direction={direction}
+              />
+            ))
+          }
+          <div className="frame">
+            <Grid />
+          </div>
         </div>
       </div>
     );

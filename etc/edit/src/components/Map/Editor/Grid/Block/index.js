@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import cn from 'classnames';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
@@ -24,22 +25,23 @@ const Block = ({
   const {
     map,
     size,
+    hash,
     selectedTerrainChop,
   } = app;
   const {
     layout,
   } = map || {};
-  const chops = _.get(layout, [x, y]);
+  const chops = _.get(layout, [y, x]);
 
   return (
     <div
       role="presentation"
       style={{
-        top: x * size,
-        left: y * size,
+        top: y * size,
+        left: x * size,
         width: size,
         height: size,
-        backgroundImage: _.join(_.map(chops, c => `url('${c}')`)),
+        backgroundImage: _.join(_.map(chops, c => `url('${c}?${hash}')`)),
       }}
       onClick={
         handleAdd({
@@ -50,7 +52,7 @@ const Block = ({
           dispatch,
         })
       }
-      className={className}
+      className={cn(className, 'block')}
     />
   );
 };

@@ -5,22 +5,31 @@ import {
   shape,
   number,
 } from 'prop-types';
-import Block from './Block';
 import { className } from './index.scss';
+import Block from './Block';
 
 const mapStateToProps = state => ({
   app: state.map.editor.app,
 });
 
 const Grid = ({ app }) => {
-  const { map } = app;
+  const {
+    map,
+    size,
+  } = app;
   const {
     width,
     height,
   } = map || {};
 
   return (
-    <div className={className}>
+    <div
+      style={{
+        width: (width * size) || 0,
+        height: (height * size) || 0,
+      }}
+      className={className}
+    >
       {
         _.times(width, x => (
           _.times(height, y => (

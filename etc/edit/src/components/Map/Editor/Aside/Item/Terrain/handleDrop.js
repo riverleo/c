@@ -4,6 +4,7 @@ import _ from 'lodash';
 import axios from 'axios';
 import { fromJS } from 'immutable';
 import { set } from '../../redux';
+import { set as appSet } from '../../../redux';
 
 export default ({
   data,
@@ -25,8 +26,11 @@ export default ({
         return arr.set(index, fromJS(changed));
       }).toJS();
 
+      const hash = new Date().getTime();
+
+      dispatch(appSet({ hash }));
       dispatch(set({
-        hash: new Date().getTime(),
+        hash,
         terrain,
       }));
     })

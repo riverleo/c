@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
   aside: state.map.editor.aside,
 });
 
-const Tool = ({
+const Toolbar = ({
   app,
   aside,
   dispatch,
@@ -99,7 +99,7 @@ const Tool = ({
   );
 };
 
-Tool.propTypes = {
+Toolbar.propTypes = {
   app: shape({
     size: number,
     selectedChop: string,
@@ -113,4 +113,4 @@ Tool.propTypes = {
   dispatch: func.isRequired,
 };
 
-export default connect(mapStateToProps)(Tool);
+export default connect(mapStateToProps)(Toolbar);
