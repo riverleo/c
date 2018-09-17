@@ -150,7 +150,6 @@ const Terrain = (props) => {
                   <button
                     key={chop}
                     type="button"
-                    disabled={!_.includes(_.get(editable, 'chops'), chop)}
                     className={cn('chop', { active: chop === selectedTerrainChop })}
                     onClick={
                       (editable ? handleRemoveChop : handleSelect)({

@@ -10,6 +10,7 @@ import {
 } from 'prop-types';
 import { connect } from 'react-redux';
 import { className } from './index.scss';
+import handleFill from './handleFill';
 import handleChangeSize from './handleChangeSize';
 import handleSelectChop from '../Aside/Item/Terrain/handleSelect';
 
@@ -24,6 +25,7 @@ const Toolbar = ({
   dispatch,
 }) => {
   const {
+    map,
     size,
     selectedTerrain,
     selectedTerrainChop,
@@ -51,6 +53,8 @@ const Toolbar = ({
             </button>
           ))
         }
+      </div>
+      <div className="tool">
         <button
           type="button"
           className={cn('erase', { active: selectedTerrainChop === 'erase' })}
@@ -61,7 +65,20 @@ const Toolbar = ({
             })
           }
         >
-          지우개
+          <i className="fas fa-eraser" />
+        </button>
+        <button
+          type="button"
+          className="fill"
+          onClick={
+            handleFill({
+              map,
+              dispatch,
+              selectedTerrainChop,
+            })
+          }
+        >
+          <i className="fas fa-fill" />
         </button>
       </div>
       <div className="size">
@@ -75,7 +92,7 @@ const Toolbar = ({
             })
           }
         >
-          -
+          <i className="far fa-minus-square" />
         </button>
         <input
           type="number"
@@ -92,7 +109,7 @@ const Toolbar = ({
             })
           }
         >
-          +
+          <i className="far fa-plus-square" />
         </button>
       </div>
     </nav>

@@ -4,14 +4,12 @@ import { set as appSet } from '../../../redux';
 
 export default ({
   chop,
-  terrain,
-  building,
+  data,
   dispatch,
 }) => () => {
   const props = _.omitBy({
-    selectedTerrain: terrain,
+    selectedTerrain: data,
     selectedTerrainChop: chop,
-    selectedBuilding: building,
   }, o => _.isNil(o));
 
   dispatch(appSet(props));

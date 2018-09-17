@@ -8,6 +8,7 @@
   button {
     float: left;
     background-color: rgba(0, 0, 0, 0.03);
+    cursor: pointer;
 
     &:hover.increment {
       background-color: #0028db;

@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = ({ dev } = {}) => ({
   mode: dev ? 'development' : 'production',
-  devtool: dev ? 'cheap-module-eval-source-map' : 'nosources-source-map',
+  devtool: dev ? 'cheap-module-source-map' : 'nosources-source-map',
   entry: {
     main: './src/index.js',
     edit: './etc/edit/src/index.js',
@@ -33,14 +33,25 @@ module.exports = ({ dev } = {}) => ({
         exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
           {
             loader: 'postcss-loader',
             options: {
               plugins: [autoprefixer],
+              sourceMap: true,
             },
           },
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
         ],
       },
     ],

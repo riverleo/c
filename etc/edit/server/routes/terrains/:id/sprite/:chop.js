@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const realm = require('realm');
 const { send } = require('micro');
 const db = require('../../../../models/db');
 
@@ -16,7 +15,7 @@ module.exports = async (req, res) => {
       if (_.isNil(terrain)) {
         send(res, 404);
 
-        return
+        return;
       }
 
       const indexes = _.map(_.split(chop, ','), c => _.toInteger(c));
@@ -25,9 +24,9 @@ module.exports = async (req, res) => {
       terrain.chops = chops;
 
       send(res, 202);
-
-      return;
     });
+
+    return;
   }
 
   if (_.isNil(sprite)) {

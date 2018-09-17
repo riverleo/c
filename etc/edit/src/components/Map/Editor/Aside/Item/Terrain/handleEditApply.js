@@ -22,6 +22,12 @@ export default ({
     indexes.push(i);
   });
 
+  if (_.isEmpty(indexes)) {
+    dispatch(set({ editable: undefined }));
+
+    return;
+  }
+
   axios.delete(`/terrains/${data.id}/sprite/${_.join(indexes)}`);
 
   dispatch(set({

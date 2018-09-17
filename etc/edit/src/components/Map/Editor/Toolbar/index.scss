@@ -3,13 +3,18 @@
   padding: 20px 0;
   overflow: auto;
 
+  .tool,
   .terrain {
     float: left;
+  }
+
+  .terrain {
+    padding: 14px 0;
 
     .chop {
       float: left;
-      width: 30px;
-      height: 30px;
+      width: 16px;
+      height: 16px;
       margin: 0 5px;
 
       i {
@@ -20,25 +25,40 @@
       }
 
       &.active {
-        margin: 0 4px;
+        margin: 0 5px;
         padding: 1px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         background-color: rgba(0, 0, 0, 0.03);
       }
     }
+  }
 
-    .erase {
+  .tool,
+  .size {
+    padding: 10px 0;
+  }
+
+  .tool {
+    button {
+      margin-right: 10px;
+      font-size: 16px;
+      opacity: 0.5;
+
+      &:hover,
       &.active {
-        color: red;
+        opacity: 1;
       }
+    }
+
+    .erase.active {
+      color: #0028db;
     }
   }
 
   .size {
     float: right;
     height: 40px;
-    padding: 9px;
-    font-size: 16px;
+    font-size: 14px;
     overflow: auto;
 
     input,

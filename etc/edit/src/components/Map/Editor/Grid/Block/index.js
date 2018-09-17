@@ -29,9 +29,14 @@ const Block = ({
     selectedTerrainChop,
   } = app;
   const {
+    chop,
     layout,
   } = map || {};
-  const chops = _.get(layout, [y, x]);
+  const chops = _.get(layout, [y, x]) || [];
+
+  if (!_.isNil(chop)) {
+    chops.push(chop);
+  }
 
   return (
     <div
