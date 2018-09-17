@@ -20,6 +20,10 @@
             font-size: 16px;
             min-height: 24px;
             background-color: transparent;
+
+            &:disabled {
+              opacity: 0.2;
+            }
           }
         }
 
@@ -45,17 +49,24 @@
       overflow: auto;
 
       .add,
+      .edit,
       .remove {
         float: left;
-        width: calc(50% - 10px);
+        width: calc(37.5% - 10px);
         margin: 0 5px;
         padding: 10px;
         font-size: 12px;
         text-align: center;
         opacity: 0.8;
+        cursor: pointer;
 
         &:hover {
           opacity: 1;
+        }
+
+        &:disabled,
+        &.disabled {
+          opacity: 0.2;
         }
       }
 
@@ -63,10 +74,21 @@
         color: white;
         border: 1px solid #0028db;
         background-color: #0028db;
-        cursor: pointer;
+      }
+
+      .edit {
+        color: #0028db;
+        border: 1px solid #0028db;
+
+        &.active {
+          color: white;
+          border: 1px solid #0028db;
+          background-color: #0028db;
+        }
       }
 
       .remove {
+        width: calc(25% - 10px);
         color: #f60063;
         border: 1px solid #f60063;
       }

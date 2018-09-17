@@ -16,6 +16,10 @@ import handleClick from './handleClick';
 import handleSelect from './handleSelect';
 import handleChange from './handleChange';
 import handleRemove from './handleRemove';
+import handleRemoveChop from './handleRemoveChop';
+import handleEditStart from './handleEditStart';
+import handleEditApply from './handleEditApply';
+import handleEditCancel from './handleEditCancel';
 
 const mapStateToProps = state => ({
   aside: state.map.editor.aside,
@@ -30,6 +34,8 @@ const Terrain = (props) => {
   const {
     type,
     hash,
+    terrain,
+    editable,
     selectedTerrain,
     selectedTerrainChop,
     selectedBuilding,
@@ -37,8 +43,9 @@ const Terrain = (props) => {
   const {
     id,
     name,
-    chops,
   } = data;
+  const disabled = !_.isNil(editable);
+  const { chops } = editable || data;
 
   let active;
 
@@ -59,6 +66,7 @@ const Terrain = (props) => {
         <button
           type="button"
           className="item"
+          disabled={disabled}
           onClick={
             handleClick({
               data,
@@ -72,6 +80,7 @@ const Terrain = (props) => {
               <input
                 type="text"
                 value={name}
+                disabled={disabled}
                 onChange={
                   handleChange({
                     key: 'name',
@@ -100,14 +109,29 @@ const Terrain = (props) => {
               })
             }
             multiple={false}
-            className="add"
+            disabled={disabled}
+            className={cn('add', { disabled })}
           >
             이미지 추가
           </Drop>
           <button
             type="button"
             onClick={
-              handleRemove({
+              (editable ? handleEditApply : handleEditStart)({
+                data,
+                terrain,
+                editable,
+                dispatch,
+              })
+            }
+            className={cn('edit', { active: editable })}
+          >
+            {editable ? '완료' : '편집'}
+          </button>
+          <button
+            type="button"
+            onClick={
+              (editable ? handleEditCancel : handleRemove)({
                 data,
                 aside,
                 dispatch,
@@ -115,7 +139,7 @@ const Terrain = (props) => {
             }
             className="remove"
           >
-            삭제
+            {editable ? '취소' : '삭제'}
           </button>
         </menu>
         {
@@ -126,11 +150,13 @@ const Terrain = (props) => {
                   <button
                     key={chop}
                     type="button"
+                    disabled={!_.includes(_.get(editable, 'chops'), chop)}
                     className={cn('chop', { active: chop === selectedTerrainChop })}
                     onClick={
-                      handleSelect({
+                      (editable ? handleRemoveChop : handleSelect)({
                         chop,
-                        terrain: data,
+                        data,
+                        editable,
                         dispatch,
                       })
                     }

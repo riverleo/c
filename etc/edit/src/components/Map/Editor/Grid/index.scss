@@ -2,8 +2,4 @@
   margin: 0 auto;
   position: relative;
   background-color: white;
-
-  &:hover .block {
-    box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.02), inset 1px 1px 0 0 rgba(0, 0, 0, 0.04);
-  }
 }

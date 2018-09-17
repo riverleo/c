@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const realm = require('realm');
 const { send } = require('micro');
 const db = require('../../../../models/db');
 
@@ -12,18 +13,21 @@ module.exports = async (req, res) => {
 
   if (req.method === 'DELETE') {
     db.write(() => {
-      if (!_.isNil(terrain)) {
-        console.log({ chops: terrain.chops, chop });
-        console.log({ removed: _.remove(terrain.chops, (__, index) => {
-          console.log(__, index);
-          return index === _.toInteger(chop);
-        }) });
+      if (_.isNil(terrain)) {
+        send(res, 404);
+
+        return
       }
 
-      send(res, 202);
-    });
+      const indexes = _.map(_.split(chop, ','), c => _.toInteger(c));
+      const chops = _.filter(terrain.chops, (c, i) => !_.includes(indexes, i));
 
-    return;
+      terrain.chops = chops;
+
+      send(res, 202);
+
+      return;
+    });
   }
 
   if (_.isNil(sprite)) {
