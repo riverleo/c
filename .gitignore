@@ -2,5 +2,5 @@
 *.log
 .DS_Store
 
-/etc/dist/
+/out/
 /node_modules/
