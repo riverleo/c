@@ -29,13 +29,13 @@ const Block = ({
     selectedTerrainChop,
   } = app;
   const {
-    chop,
+    chop: defaultChop,
     layout,
   } = map || {};
-  const chops = _.get(layout, [y, x]) || [];
+  const chops = _.clone(_.get(layout, [y, x])) || [];
 
-  if (!_.isNil(chop)) {
-    chops.push(chop);
+  if (_.isEmpty(chops) && !_.isNil(defaultChop)) {
+    chops.push(defaultChop);
   }
 
   return (
