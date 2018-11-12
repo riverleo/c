@@ -7,8 +7,8 @@ const handler = require('serve-handler');
 module.exports = async (req, res) => { // eslint-disable-line consistent-return
   const matched = match(path.join(__dirname, '/routes'))(req);
 
-  if (_.startsWith(req.url, '/dist')) {
-    return await handler(req, res, { public: 'etc' }); // eslint-disable-line no-return-await
+  if (_.startsWith(req.url, '/out')) {
+    return await handler(req, res); // eslint-disable-line no-return-await
   }
 
   if (matched) {
